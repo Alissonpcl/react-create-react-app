@@ -1,8 +1,11 @@
-import React, { Component, Fragment } from 'react';
+import React, {Component, Fragment} from 'react';
 import Header from '../../components/header/Header';
 import ApiService from "../../utils/ApiService";
 import Tabela from "../../components/tabela/Tabela";
 import Toast from "../../components/toast/Toast";
+import Grid from "@material-ui/core/Grid";
+import Typography from "@material-ui/core/Typography";
+import PageTitle from "../../components/PageTitle";
 
 
 class Autores extends Component {
@@ -18,7 +21,7 @@ class Autores extends Component {
     componentDidMount() {
         ApiService.ListaNomes()
             .then(res => {
-                if (res.message === 'success'){
+                if (res.message === 'success') {
                     this.setState({
                         nomes: [...this.state.nomes, ...res.data]
                     })
@@ -35,11 +38,14 @@ class Autores extends Component {
 
         return (
             <Fragment>
-                <Header />
-                <div className='container'>
-                    <h1>Página de Autores</h1>
-                    <Tabela dados={this.state.nomes} campos={campos}/>
-                </div>
+                <Header/>
+                <PageTitle>Autores</PageTitle>
+                <Grid container direction={"row"}
+                      justify={"center"}>
+                    <Grid item sm={10} md={8}>
+                        <Tabela dados={this.state.nomes} campos={campos}/>
+                    </Grid>
+                </Grid>
                 <Toast
                     open={this.state.toastOpen}
                     handleClose={

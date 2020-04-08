@@ -1,5 +1,4 @@
-import React, {Component, Fragment} from 'react';
-import 'materialize-css/dist/css/materialize.min.css';
+import React, {Component} from 'react';
 import './Home.css';
 
 import Header from "../../components/header/Header";
@@ -7,6 +6,8 @@ import Tabela from "../../components/tabela/Tabela";
 import Formulario from "../../components/formulario/Formulario";
 import ApiService from "../../utils/ApiService";
 import Toast from "../../components/toast/Toast";
+import Grid from "@material-ui/core/Grid";
+import PageTitle from "../../components/PageTitle";
 
 class Home extends Component{
 
@@ -111,15 +112,17 @@ class Home extends Component{
             {titulo: 'Preços', dado: 'preco'}
         ];
         return (
-            <Fragment>
+            <>
                 <Header/>
-                <h1>Casa do Código</h1>
-                <div className="container mb-10">
-                    <Formulario escutadorDeSubmit={ this.escutadorDeSubmit }/>
-                    <div className="mb-10">
+                <PageTitle>Home</PageTitle>
+                <Grid container spacing={3} alignItems={"center"} direction={"row"} justify={"center"}>
+                    <Grid item>
+                        <Formulario escutadorDeSubmit={ this.escutadorDeSubmit }/>
+                    </Grid>
+                    <Grid item sm={12} md={10}>
                         <Tabela campos={campos} dados={ this.state.autores } removeDados={ this.removeAutor }/>
-                    </div>
-                </div>
+                    </Grid>
+                </Grid>
                 <Toast
                     open={this.state.mensagem.open}
                     handleClose={
@@ -128,7 +131,7 @@ class Home extends Component{
                     severity={this.state.mensagem.tipo}>
                     {this.state.mensagem.text}
                 </Toast>
-            </Fragment>
+            </>
         );
     }
 
